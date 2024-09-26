@@ -84,7 +84,7 @@ pipeline {
                 sh 'trivy image --format table -o trivy-image-scan $userName/$imgName'
             }
         }
-        stage ('push image to hub') {
+        stage ('push image to dockerhub') {
             steps {
                 withDockerRegistry(credentialsId: 'dockercred', url: '') {
                     sh 'docker push $userName/$imgName'
