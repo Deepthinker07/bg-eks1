@@ -81,7 +81,7 @@ pipeline {
         }
         stage ('trivy image scan') {
             steps {
-                sh 'trivy image --format table -o trivy-image-scan $userName/$imgName'
+                sh 'trivy image --format table -o trivy-image-scan $userName/$imgName --scanners vuln'
             }
         }
         stage ('push image to dockerhub') {
