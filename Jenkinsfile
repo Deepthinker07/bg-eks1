@@ -71,7 +71,7 @@ pipeline {
                         nexusVersion: 'nexus3',
                          protocol: 'http',
                           repository: 'artifact',
-                           version: '0.0.4'
+                           version: '0.0.4+$BUILD_NUMBER'
             }
         }
         stage ('docker image build') {
