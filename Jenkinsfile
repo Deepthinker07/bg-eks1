@@ -60,18 +60,19 @@ pipeline {
         }
         stage ('deploy to eks') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'my-eks', contextName: '', credentialsId: 'k8s-secret', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://4A32B32DC672DC56BADDD48EC3901D90.gr7.us-east-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'sathish1-EKS', contextName: '', credentialsId: 'ku', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://BE43A1091B8A26664B84C58D674197E5.sk1.ap-southeast-1.eks.amazonaws.com') {
                     sh 'kubectl apply -f deploy-svc.yml'
                     sleep 60
                 }
             }
         }
-        stage ('verify deploy to eks') {
+        stage ('verify to eks') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'my-eks', contextName: '', credentialsId: 'k8s-secret', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://4A32B32DC672DC56BADDD48EC3901D90.gr7.us-east-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'sathish1-EKS', contextName: '', credentialsId: 'ku', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://BE43A1091B8A26664B84C58D674197E5.sk1.ap-southeast-1.eks.amazonaws.com') {
                     sh 'kubectl get svc'
+
                 }
             }
         }
-    }
+    }  
 }
