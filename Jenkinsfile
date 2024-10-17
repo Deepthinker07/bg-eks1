@@ -16,7 +16,7 @@ pipeline {
         }
         stage ('git checkout') {
             steps {
-                
+                git credentialsId: 'sa', url: 'https://github.com/Deepthinker07/bg-eks1.git'
             }
         }
         stage ('code compile') {
