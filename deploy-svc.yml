@@ -30,9 +30,9 @@ metadata: # Metadata of the resource kind we are creating
   name: boardgame-ssvc
 spec:
   selector:
-    app: boardgame
+    app: boardgame # selects the Pods that the Service will route traffic to, based on matching labels.
   ports:
     - protocol: "TCP"
-      port: 80 # clusterIP port
-      targetPort: 8080 
+      port: 80 # clusterIP port [port on which the Service is exposed within the cluster]
+      targetPort: 8080 # container port
   type: LoadBalancer # type of the service.
