@@ -16,18 +16,22 @@ pipeline {
         }
         stage ('git checkout') {
             steps {
-                git credentialsId: 'sa', url: 'https://github.com/Deepthinker07/bg-eks1.git'
+                git credentialsId: 's1', url: 'https://github.com/Deepthinker07/bg-eks1.git'
             }
         }
-        stage ('code compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        stage ('unit test') {
-            steps {
-                sh 'mvn test'
-            }
+        stage ('compile & test') {
+            parallel {
+                stage ('compile') {
+                    steps {
+                        sh 'mvn compile'
+                    }
+                }    
+                stage ('unit test') {
+                    steps {
+                        sh 'mvn test'
+                    }
+                }
+            }    
         }
         stage ('static code analysis') {
             steps {
@@ -53,7 +57,7 @@ pipeline {
         }
         stage ('push image to dockerhub') {
             steps {
-                withDockerRegistry(credentialsId: 'sa2', url: '') {
+                withDockerRegistry(credentialsId: 'dock', url: '') {
                     sh 'docker push $userName/$imgName'
                 }    
             }
@@ -66,7 +70,7 @@ pipeline {
                 }
             }
         }
-        stage ('verify to eks') {
+        stage ('cerify to eks') {
             steps {
                 withKubeConfig(caCertificate: '', clusterName: 'sathish-eks', contextName: '', credentialsId: 'kub', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://DBC183504E8FD5E8DE75305339976D8C.gr7.ap-southeast-1.eks.amazonaws.com') {
                     sh 'kubectl get svc'
