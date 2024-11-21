@@ -13,7 +13,7 @@ pipeline {
             steps {
                 cleanWs()
             }
-        }
+        }   
         stage ('git checkout') {
             steps {
                 git credentialsId: 's1', url: 'https://github.com/Deepthinker07/bg-eks1.git'
@@ -55,7 +55,7 @@ pipeline {
                 sh 'docker build -t $userName/$imgName .'
             }
         }
-        stage ('push image to dockerhub1') {
+        stage ('push image to dockerhub') {
             steps {
                 withDockerRegistry(credentialsId: 'dock', url: '') {
                     sh 'docker push $userName/$imgName'
