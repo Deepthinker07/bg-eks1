@@ -17,7 +17,7 @@ pipeline {
         // }   
         stage ('git checkout') {
             steps {
-                git_cred.groovy()
+                git_cred()
             }
         }
         stage ('compile & test') {
@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('static code analysis') {
             steps {
-                sonar.groovy()
+                sonar()
             }
         }
         stage ('code package') {
