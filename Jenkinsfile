@@ -16,7 +16,7 @@ pipeline {
         }   
         stage ('git checkout') {
             steps {
-                git credentialsId: 's1', url: 'https://github.com/Deepthinker07/bg-eks1.git'
+                git_cred.groovy()
             }
         }
         stage ('compile & test') {
@@ -35,14 +35,7 @@ pipeline {
         }
         stage ('static code analysis') {
             steps {
-                withSonarQubeEnv ('sonarserver') {
-                    sh '''
-                    $scanner/bin/sonar-scanner \
-                    -Dsonar.projectName=boardgame \
-                    -Dsonar.projectKey=boardgamekey \
-                    -Dsonar.java.binaries=target/classes 
-                    '''
-                }
+                sonar.groovy()
             }
         }
         stage ('code package') {
@@ -64,7 +57,7 @@ pipeline {
         }
         stage ('deploy to eks') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'singh-EKS', contextName: '', credentialsId: 'kube', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://883E66BF913871535B678866B4C102FF.gr7.ap-southeast-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: ' singh-EKS', contextName: '', credentialsId: 'kube', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://883E66BF913871535B678866B4C102FF.gr7.ap-southeast-1.eks.amazonaws.com') {
                     sh 'kubectl apply -f deploy-svc.yml'
                     sleep 60
                 }
@@ -72,7 +65,7 @@ pipeline {
         }
         stage ('cerify to eks') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'singh-EKS', contextName: '', credentialsId: 'kube', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://883E66BF913871535B678866B4C102FF.gr7.ap-southeast-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: ' singh-EKS', contextName: '', credentialsId: 'kube', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://883E66BF913871535B678866B4C102FF.gr7.ap-southeast-1.eks.amazonaws.com') {
                     sh 'kubectl get svc'
                 }
             }
