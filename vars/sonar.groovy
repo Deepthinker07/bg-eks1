@@ -1,4 +1,4 @@
-def var() {
+def call() {
     withSonarQubeEnv ('sonarserver') {
                     sh '''
                     $scanner/bin/sonar-scanner \
