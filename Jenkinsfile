@@ -1,3 +1,4 @@
+@Library{'edhana'} _
 pipeline {
     agent any 
     tools {
