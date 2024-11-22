@@ -1,4 +1,4 @@
-@Library{'edhana'} _
+@Library('edhana') _
 pipeline {
     agent any 
     tools {
@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('static code analysis') {
             steps {
-                sonar.grovy()
+                sonar.groovy()
             }
         }
         stage ('code package') {
