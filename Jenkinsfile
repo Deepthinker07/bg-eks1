@@ -10,11 +10,11 @@ pipeline {
         imgName = 'bgimg'
     }
     stages {
-        stage ('cleanWs') {
-            steps {
-                cleanWs()
-            }
-        }   
+        // stage ('cleanWs') {
+        //     steps {
+        //         cleanWs()
+        //     }
+        // }   
         stage ('git checkout') {
             steps {
                 git_cred.groovy()
@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('static code analysis') {
             steps {
-                sonar.groovy()
+                sonar.grovy()
             }
         }
         stage ('code package') {
